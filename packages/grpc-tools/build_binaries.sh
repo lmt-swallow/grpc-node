@@ -27,14 +27,16 @@ tools_version=$(jq '.version' < package.json | tr -d '"')
 out_dir=$base/../../artifacts/grpc-tools/v$tools_version
 mkdir -p "$out_dir"
 
+ARCH=$(uname -m | sed "s/x86_64/x64/g")
+
 case $(uname -s) in
   Linux)
     platform=linux
-    arch_list=( ia32 x64 )
+    arch_list=( $ARCH )
     ;;
   Darwin)
     platform=darwin
-    arch_list=( x64 )
+    arch_list=( $ARCH )
     ;;
 esac
 
